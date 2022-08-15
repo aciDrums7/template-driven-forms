@@ -1,0 +1,109 @@
+<div class='container'>
+  <h2>User Settings</h2>
+
+  <!--  template reference variable-->
+  <form #form='ngForm' (ngSubmit)='onSubmit(form)'>
+
+    <div class='mb-3'>
+      <!--the 'for' attribute of the label tag needs to link the label to his form control
+      click on the label to focus on related form control-->
+      <!--      <label for='name'>Name</label>-->
+      <!--the attribute name is the key of the ngForm.value properties!
+      (the name itself of the property)-->
+      <input type='text' class='form-control' aria-label='Name'
+             placeholder='Name' id='name' name='name'
+             [(ngModel)]="originalUserSetting.name"
+             required #nameField='ngModel'
+             (blur)='onBlur(nameField)'
+            [class.field-error]='form.submitted && form.invalid'>
+      <!--'ngModel' directive alone is useful when you don't have a model of which display data
+      in the form controls-->
+<!--      showing error before submit-->
+      <!--<div [hidden]='nameField.valid || nameField.untouched'
+           class='alert alert-danger'>
+        Enter a valid name
+      </div>-->
+<!--      showing error after submit (if form is invalid)-->
+      <div [hidden]='!form.submitted || nameField.valid'
+           class='alert alert-danger'>
+        Enter a valid name
+      </div>
+    </div>
+
+    <!--    useful for 'debug', to see which classes are applied to the target tag-->
+    <!--    <h3>{{propertyTest.className}}</h3>-->
+    <!--<h3>pristine : {{propertyTest.pristine}}</h3>
+    <h3>dirty : {{propertyTest.dirty}}</h3>
+    <h3>touched : {{propertyTest.touched}}</h3>
+    <h3>untouched : {{propertyTest.untouched}}</h3>
+    <h3>valid : {{propertyTest.valid}}</h3>
+    <h3>invalid : {{propertyTest.invalid}}</h3>-->
+
+    <div class='form-check mb-3'>
+      <input class='form-check-input' type='checkbox'
+             id='emailOffers' name='emailOffers' [(ngModel)]='originalUserSetting.emailOffers'>
+      <label class='form-check-label' for='emailOffers'>
+        Email Special Offers
+      </label>
+    </div>
+
+    <p>User Interface Style</p>
+    <div class='mb-3'>
+      <div class='form-check'>
+        <input class='form-check-input' type='radio' name='interfaceStyle'
+               id='lightInterface' value='light' checked
+               [(ngModel)]='originalUserSetting.interfaceStyle'>
+        <label class='form-check-label' for='lightInterface'>
+          Light
+        </label>
+      </div>
+      <div class='form-check'>
+        <input class='form-check-input' type='radio' name='interfaceStyle'
+               id='mediumInterface' value='medium'
+               [(ngModel)]='originalUserSetting.interfaceStyle' >
+        <label class='form-check-label' for='mediumInterface'>
+          Medium
+        </label>
+      </div>
+      <div class='form-check'>
+        <input class='form-check-input' type='radio' name='interfaceStyle'
+               id='darkInterface' value='dark'
+               [(ngModel)]='originalUserSetting.interfaceStyle'>
+        <label class='form-check-label' for='darkInterface'>
+          Dark
+        </label>
+      </div>
+    </div>
+
+    <div class='mb-3'>
+      <select class='form-select' id='subscriptionType' name='subscriptionType'
+              aria-label='Subscription Type' [(ngModel)]='originalUserSetting.subscriptionType'>
+        <option value='' selected>Subscription Type</option>
+        <option value='Monthly'>Monthly</option>
+        <option value='Annual'>Annual</option>
+        <option value='Lifetime'>Lifetime</option>
+      </select>
+    </div>
+
+    <div class='mb-3'>
+      <div class='form-floating'>
+        <textarea class='form-control' placeholder='Leave a comment here'
+                  id='notes' name='notes' [(ngModel)]='originalUserSetting.notes'></textarea>
+        <label for='notes'>Notes</label>
+      </div>
+    </div>
+
+    <!--<div class='input-group mb-3'>
+      <input type='password' class='form-control' placeholder='Password' id='password' name='password'>
+    </div>
+
+    <div class='input-group mb-3'>
+      <input type='date' class='form-control' placeholder='Date' id='testing' name='testing'>
+    </div>-->
+
+    <button class='btn btn-primary'>Send</button>
+
+  </form>
+</div>
+
+<h3>{{ form.value | json }}</h3>
