@@ -12,7 +12,7 @@
       (the name itself of the property)-->
       <input type='text' class='form-control' aria-label='Name'
              placeholder='Name' id='name' name='name'
-             [(ngModel)]="originalUserSetting.name"
+             [(ngModel)]="userSettings.name"
              required #nameField='ngModel'
              (blur)='onBlur(nameField)'
             [class.field-error]='form.submitted && form.invalid'>
@@ -41,7 +41,7 @@
 
     <div class='form-check mb-3'>
       <input class='form-check-input' type='checkbox'
-             id='emailOffers' name='emailOffers' [(ngModel)]='originalUserSetting.emailOffers'>
+             id='emailOffers' name='emailOffers' [(ngModel)]='userSettings.emailOffers'>
       <label class='form-check-label' for='emailOffers'>
         Email Special Offers
       </label>
@@ -52,7 +52,7 @@
       <div class='form-check'>
         <input class='form-check-input' type='radio' name='interfaceStyle'
                id='lightInterface' value='light' checked
-               [(ngModel)]='originalUserSetting.interfaceStyle'>
+               [(ngModel)]='userSettings.interfaceStyle'>
         <label class='form-check-label' for='lightInterface'>
           Light
         </label>
@@ -60,7 +60,7 @@
       <div class='form-check'>
         <input class='form-check-input' type='radio' name='interfaceStyle'
                id='mediumInterface' value='medium'
-               [(ngModel)]='originalUserSetting.interfaceStyle' >
+               [(ngModel)]='userSettings.interfaceStyle' >
         <label class='form-check-label' for='mediumInterface'>
           Medium
         </label>
@@ -68,7 +68,7 @@
       <div class='form-check'>
         <input class='form-check-input' type='radio' name='interfaceStyle'
                id='darkInterface' value='dark'
-               [(ngModel)]='originalUserSetting.interfaceStyle'>
+               [(ngModel)]='userSettings.interfaceStyle'>
         <label class='form-check-label' for='darkInterface'>
           Dark
         </label>
@@ -77,18 +77,21 @@
 
     <div class='mb-3'>
       <select class='form-select' id='subscriptionType' name='subscriptionType'
-              aria-label='Subscription Type' [(ngModel)]='originalUserSetting.subscriptionType'>
-        <option value='' selected>Subscription Type</option>
+              aria-label='Subscription Type' [(ngModel)]='userSettings.subscriptionType'>
+       <!-- <option value='' selected>Subscription Type</option>
         <option value='Monthly'>Monthly</option>
         <option value='Annual'>Annual</option>
-        <option value='Lifetime'>Lifetime</option>
+        <option value='Lifetime'>Lifetime</option>-->
+        <option *ngFor='let type of subscriptionTypes | async'>
+          {{type}}
+        </option>
       </select>
     </div>
 
     <div class='mb-3'>
       <div class='form-floating'>
         <textarea class='form-control' placeholder='Leave a comment here'
-                  id='notes' name='notes' [(ngModel)]='originalUserSetting.notes'></textarea>
+                  id='notes' name='notes' [(ngModel)]='userSettings.notes'></textarea>
         <label for='notes'>Notes</label>
       </div>
     </div>
@@ -101,9 +104,14 @@
       <input type='date' class='form-control' placeholder='Date' id='testing' name='testing'>
     </div>-->
 
+
+    <div [hidden]='!postError'
+         class='alert alert-danger'>
+      {{postErrorMessage}}
+    </div>
     <button class='btn btn-primary'>Send</button>
 
   </form>
 </div>
 
-<h3>{{ form.value | json }}</h3>
+<!--<h3>{{ form.value | json }}</h3>-->
