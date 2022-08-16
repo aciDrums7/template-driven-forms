@@ -15,6 +15,8 @@ export class UserSettingsFormComponent implements OnInit, OnDestroy {
   postError: boolean | undefined;
   postErrorMessage: string | undefined;
   subscriptionTypes!: Observable<string[]>;
+  singleModel : string = 'On';
+  startDate!: Date;
 
   /*originalUserSetting: UserSettings = {
     name: 'Edoardo',
@@ -49,6 +51,7 @@ export class UserSettingsFormComponent implements OnInit, OnDestroy {
     //in the template, using the 'async' pipe, the Observable is auto handled!
     //'async' pipe waits until a value is emitted, it auto sub & unsub
     this.subscriptionTypes = this.service.getSubscriptionTypes();
+    this.startDate = new Date();
   }
 
   ngOnDestroy(): void {
@@ -62,7 +65,8 @@ export class UserSettingsFormComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(form: NgForm) {
-    if (form.valid) {
+    console.log('in onSubmit()', form.value);
+   /* if (form.valid) {
       this.sub = this.service.postUserSettings(this.userSettings).subscribe({
         next: value => console.log('success: ', value),
         error: err => this.onHttpError(err)
@@ -70,7 +74,7 @@ export class UserSettingsFormComponent implements OnInit, OnDestroy {
     } else {
       this.postError = true;
       this.postErrorMessage = 'Please fill the form correctly before submit';
-    }
+    }*/
   }
 
 
@@ -78,4 +82,6 @@ export class UserSettingsFormComponent implements OnInit, OnDestroy {
     console.log('In onBlur(): ', field.valid);
   }
 
+  //TODO: finisci il corso e fai commit e push!
 }
+

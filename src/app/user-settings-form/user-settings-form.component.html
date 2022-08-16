@@ -12,7 +12,7 @@
       (the name itself of the property)-->
       <input type='text' class='form-control' aria-label='Name'
              placeholder='Name' id='name' name='name'
-             [(ngModel)]="userSettings.name"
+             [(ngModel)]='userSettings.name'
              required #nameField='ngModel'
              (blur)='onBlur(nameField)'
             [class.field-error]='form.submitted && form.invalid'>
@@ -39,6 +39,28 @@
     <h3>valid : {{propertyTest.valid}}</h3>
     <h3>invalid : {{propertyTest.invalid}}</h3>-->
 
+    <div class='mb-3'>
+      <label for='startDate'>Start Date</label>
+      <bs-datepicker-inline-container>
+      <input type="text"
+             placeholder="Start Date"
+             class="form-control"
+             [(ngModel)]='startDate' name='startDate' id='startDate'
+             bsDatepicker>
+      </bs-datepicker-inline-container>
+    </div>
+
+    Start date: {{startDate}}
+
+    <div class='mb-3 bs-datepicker-container'>
+<!--      <pre class='card card-block card-header'>{{singleModel}}</pre>-->
+      <button type='button' class='btn btn-primary' name='singleModel'
+              [(ngModel)]='singleModel' btnCheckbox
+              btnCheckboxTrue='On' btnCheckboxFalse='Off'>
+        {{'Single Toggle: ' + singleModel}}
+      </button>
+    </div>
+
     <div class='form-check mb-3'>
       <input class='form-check-input' type='checkbox'
              id='emailOffers' name='emailOffers' [(ngModel)]='userSettings.emailOffers'>
@@ -49,7 +71,14 @@
 
     <p>User Interface Style</p>
     <div class='mb-3'>
-      <div class='form-check'>
+        <div class="form-inline d-flex align-items-center">
+          <div class="btn-group" btnRadioGroup name='interfaceStyle' [(ngModel)]="userSettings.interfaceStyle">
+            <label class="btn btn-primary mb-0" btnRadio="Light">Light</label>
+            <label class="btn btn-primary mb-0" btnRadio="Medium">Medium</label>
+            <label class="btn btn-primary mb-0" btnRadio="Dark">Dark</label>
+          </div>
+        </div>
+      <!--<div class='form-check'>
         <input class='form-check-input' type='radio' name='interfaceStyle'
                id='lightInterface' value='light' checked
                [(ngModel)]='userSettings.interfaceStyle'>
@@ -72,7 +101,7 @@
         <label class='form-check-label' for='darkInterface'>
           Dark
         </label>
-      </div>
+      </div>-->
     </div>
 
     <div class='mb-3'>
@@ -114,4 +143,4 @@
   </form>
 </div>
 
-<!--<h3>{{ form.value | json }}</h3>-->
+<h3>{{ form.value | json }}</h3>
